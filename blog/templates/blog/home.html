@@ -4,7 +4,11 @@
     <title></title>
 </head>
 <body>
-    <h1>Blog Home!</h1>
-    
+    {% for cosa in cosas %}
+        <h1>{{ cosa.title }}</h1> <!--para las variables se usa doble curly braces-->
+        <p>By {{ cosa.author }} on {{ cosa.date_posted }}</p>
+    {% endfor %}
+
+
 </body>
 </html>

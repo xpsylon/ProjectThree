@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse #dont need it, we are not using it
 
 #dummy data in the beginning for the posts. list of dictionaries:
-posts = [
+postear = [
     {
         'author': 'Jake La Motta',
         'title': 'Blog Post 1',
@@ -21,9 +21,9 @@ posts = [
 
 # Create your views here.
 def home(request):
-    #creamos un diccionario usando como valor la variable posts.
+    #creamos un diccionario usando como valor la variable posts. En el html template se loopea por la clave y da como respuesta el valor.
     context = {
-        'posts': posts
+        'cosas': postear
     }
     #return HttpResponse('<h1>Blog Home</h1>')
     return render(request, 'blog/home.html', context)
