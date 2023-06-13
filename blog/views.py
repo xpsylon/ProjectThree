@@ -21,7 +21,8 @@ postear = [
 
 # Create your views here.
 def home(request):
-    #creamos un diccionario usando como valor la variable posts. En el html template se loopea por la clave y da como respuesta el valor.
+    #creamos un diccionario usando como valor la variable posts. En el html template se loopea por la clave y da como respuesta el valor. El valor es la lista
+    #de diccionarios.
     context = {
         'cosas': postear
     }
@@ -29,4 +30,5 @@ def home(request):
     return render(request, 'blog/home.html', context)
 
 def about(request):
-    return render(request, 'blog/about.html')
+    #a este le agregamos el titulo como tercer argumento
+    return render(request, 'blog/about.html', {'titulo': 'Cosas del Blog'})

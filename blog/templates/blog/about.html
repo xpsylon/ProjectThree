@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title></title>
-</head>
-<body>
-    <h1>About the Blog!</h1>
-    
-</body>
-</html>
+{% extends "blog/base.html" %}
+
+{% block contenido %} <!--Overrides block contenido of base.html-->
+    <h1>About the blog</h1>
+{% endblock contenido %}
