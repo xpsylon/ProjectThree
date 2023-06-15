@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'users.apps.UsersConfig',
     'blog.apps.BlogConfig', #agregamos la clase BlogConfig de blog.apps (herencia de AppsConfig q se crea automaticamente al crear la app blog)
     'django.contrib.admin',
     'django.contrib.auth',
