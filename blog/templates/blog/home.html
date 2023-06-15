@@ -9,7 +9,7 @@
             <div class="media-body">
                 <div class="article-metadata">
                     <a class="mr-2" href="#">{{ cosa.author }}</a>
-                    <small class="text-muted">{{ cosa.date_posted }}</small>
+                    <small class="text-muted">{{ cosa.date_posted|date:"d F, Y"}}</small>
                 </div>
                 <h2><a class="article-title" href="#">{{ cosa.title }}</a></h2>
                 <p class="article-content">{{ cosa.content }}</p>
