@@ -1,0 +1,42 @@
+{% extends "blog/base.html" %}
+{% block contenido %}
+    <div class="content-section">
+        <form method="post">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Join today!</legend>
+                {{ formulario.as_p }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Sign up</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Already have an account? <a class="ml-2" href="#">Sign In</a>
+            </small>
+        </div>
+    </div>
+{% endblock contenido %}
+
+{#
+This Django template code extends a base.html template and defines a content block named 'contenido'.
+It displays a form for signing up with a legend and form fields rendered from the 'formulario' variable.
+The form is submitted using the POST method and includes a CSRF token for security.
+There is a submit button to trigger the form submission, and a link to sign in if the user already has an account.
+#}
+
+{#In Django, form.as_p is a method used in templates to render form fields as paragraphs. It is commonly used to render a form with each form 
+field wrapped in a <p> (paragraph) HTML tag.
+When you have a form instance and you use {{ form.as_p }} in a Django template, it will render each form field wrapped in a <p> tag, 
+making it easy to display form elements vertically.
+For example, if you have a form named my_form and you render it using {{ my_form.as_p }}, the output HTML might look like this:
+<p><label for="id_field1">Field 1:</label> <input type="text" name="field1" id="id_field1"></p>
+<p><label for="id_field2">Field 2:</label> <input type="text" name="field2" id="id_field2"></p>
+<p><label for="id_field3">Field 3:</label> <input type="text" name="field3" id="id_field3"></p>
+
+As you can see, each form field is wrapped in a <p> tag, making it suitable for vertical rendering. T
+his can be useful when you want a simple and straightforward way to render form fields in a basic layout. 
+However, keep in mind that form.as_p provides a basic rendering style, and you may need to customize the form's 
+appearance further based on your specific requirements.
+#}
