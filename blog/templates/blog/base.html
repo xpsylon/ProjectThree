@@ -43,6 +43,16 @@
     <main role="main" class="container">
         <div class="row">
             <div class="col-md-8">
+            {# mensajes para todas las paginas. Ver messages en django #}
+            {% if messages %}
+                {% for mensaje in messages %}
+                    <!--Clase de bootstrap. alert-xxxx lleva el mismo nombre que las message tags de django-->
+                    <div class="alert alert-{{ mensaje.tags }}">
+                    {{ mensaje }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {# parte individual de cada pagina #}
             {% block contenido %}{% endblock %}
             </div>
             <div class="col-md-4">
