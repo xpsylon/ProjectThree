@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 #from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import UserRegisterForm
+from django.contrib.auth.decorators import login_required #built in django decorator for profile view.
 
 def registro(request):
     #This line defines a function called registro. The request parameter is a standard Django request object 
@@ -14,8 +15,8 @@ def registro(request):
             #Guarda el usuario en la base de datos:#
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Cuenta creada para {username}!')
-            return redirect('blog-home') #redirige a blog-home una vez que el formulario se envio correctamente.
+            messages.success(request, f'Cuenta creada para {username}. Ya puede iniciar sesion.')
+            return redirect('entrar') #redirige a login una vez que el formulario se envio correctamente.
     else:
         form = UserRegisterForm() 
     #This line is executed if the request method is not POST. In this case, the user has not yet submitted the registration form, 
@@ -26,3 +27,8 @@ def registro(request):
     #The users/register.html template will then display the registration form to the user.
 
     #CHECK https://docs.djangoproject.com/en/4.2/topics/forms/
+
+#VIEW FOR PROFILE (with login_required decorator)
+@login_required
+def profile(request):
+    return render(request, 'users/profile.html')

@@ -23,6 +23,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
     path('register/', user_views.registro, name='registro'),
-    path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name = 'entrar')
+    path('profile/', user_views.profile, name='perfil'),
+    #template_name da la ruta donde debe buscar los templates. Por default busca en registration/login.html...
+    path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name = 'entrar'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name= 'salir'),
 
 ]

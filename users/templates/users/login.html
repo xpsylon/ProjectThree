@@ -1,0 +1,22 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block contenido %}
+    <div class="content-section">
+        <form method="post">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Log In</legend>
+                {{ form|crispy }} {#aca usamos form en vez de formulario xq no hay view declarada. form es el default name#}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Login</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Need a new account? <a class="ml-2" href="{% url 'registro' %}">Sign up here!</a>
+            </small>
+        </div>
+    </div>
+{% endblock contenido %}

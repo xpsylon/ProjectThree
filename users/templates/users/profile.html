@@ -1,0 +1,7 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block contenido %}
+    {#pasamos built in variable#}
+    <h2>{{ user.username }}</h2>
+{% endblock contenido %}
