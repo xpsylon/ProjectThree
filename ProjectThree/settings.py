@@ -121,6 +121,15 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+import os
+#LOCATION: Absolute path to the directory that will hold the files. Defaults to the value of your MEDIA_ROOT setting. 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#BASE_URL: URL that serves the files stored at this location. Defaults to the value of your MEDIA_URL setting. Acceso en el browser.
+MEDIA_URL = '/media/'
+
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
