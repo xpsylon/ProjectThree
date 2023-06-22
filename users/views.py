@@ -31,8 +31,21 @@ def registro(request):
 #VIEW FOR PROFILE (with login_required decorator)
 @login_required
 def profile(request):
-    user_form = UserUpdateForm(instance=request.user)
-    profile_form = ProfileUpdateForm(instance=request.user.profile)
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdateForm(request.POST,request.FILES, instance=request.user.profile)
+        
+        if user_form.is_valid and profile_form.is_valid:
+            user_form.save()
+            profile_form.save()
+
+            messages.success(request, f'Datos correctamente actualizados')
+            return redirect('perfil')
+
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=request.user.profile)
+
     context = {
         'form_usuario': user_form,
         'form_perfil': profile_form
