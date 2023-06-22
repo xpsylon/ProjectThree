@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 #from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required #built in django decorator for profile view.
 
 def registro(request):
@@ -31,4 +31,24 @@ def registro(request):
 #VIEW FOR PROFILE (with login_required decorator)
 @login_required
 def profile(request):
-    return render(request, 'users/profile.html')
+    user_form = UserUpdateForm(instance=request.user)
+    profile_form = ProfileUpdateForm(instance=request.user.profile)
+    context = {
+        'form_usuario': user_form,
+        'form_perfil': profile_form
+    }
+    return render(request, 'users/profile.html', context)
+
+'''The @login_required decorator indicates that the user must be logged in to access the profile view function. 
+It adds a layer of authentication to ensure that only authenticated users can view their profile.
+
+The profile function takes a request parameter, which represents the HTTP request made by the user. It is an instance of the HttpRequest class and 
+contains information about the user's request.
+
+Inside the function, two form objects, UserUpdateForm and ProfileUpdateForm, are created. These forms are likely used for updating user and profile information on the profile page.
+
+A context dictionary is created to pass data to the template rendering engine. It contains two keys, 'form_usuario' and 'form_perfil', 
+which are associated with the user_form and profile_form objects, respectively.
+
+Finally, the function returns a rendered HTML response using the render function. It renders the 'users/profile.html' template with the provided context dictionary, 
+displaying the user profile page.'''

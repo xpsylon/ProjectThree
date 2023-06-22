@@ -2,14 +2,26 @@
 from django import forms #para agregar el campo email faltante en UserCreationForms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .models import Profile
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
-   
     #https://docs.djangoproject.com/en/4.2/topics/db/models/#meta-options
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2'] #fields attribute is mandatory for ModelForms
+
+#importamos la clase ModelForm de django.forms
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']
 
 '''Sure! Let's go through the code line by line:
 
