@@ -1,0 +1,21 @@
+{% extends "blog/base.html" %}
+
+{% block contenido%}
+    <!--overrides content of block contenido of base.html-->
+    <!--para las variables se usa doble curly braces-->
+    <!--ARTICLES Corey Schafer from articles.html-->
+    {# Al ser el detalle de cada posteo individual no necesitamos mas el for loop #}
+   {# Usamos object como i (variable iteradora) de acuerdo a la convencion de django #}
+        <article class="media content-section">
+            <img src="{{ object.author.profile.image.url }}" class="rounded-circle article-img">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="#">{{ object.author }}</a>
+                    <small class="text-muted">{{ object.date_posted|date:"d F, Y"}}</small>
+                </div>
+                <h2>{{ object.title }}</h2>
+                <p class="article-content">{{ object.content }}</p>
+            </div>
+        </article>
+{% endblock contenido %}
+

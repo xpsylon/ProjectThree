@@ -1,6 +1,6 @@
 from django.shortcuts import render
 #from django.http import HttpResponse #dont need it, we are not using it
-from django.views.generic import ListView #for ListView type of class based view.
+from django.views.generic import ListView, DetailView #ListView para ver lista de posteos y DetailView para ver cada posteo en detalle.
 from .models import Post
 
 # Create your views here.
@@ -19,6 +19,12 @@ class PostListView(ListView):
     template_name = 'blog/home.html'
     context_object_name = 'cosas' #porque sino por default las ListViews buscan loopear por object_list
     ordering = ['-date_posted'] #ordebar de fecha mas nueva a mas vieja (con el signo -)
+
+#creamos una lista de DetailView (posteos individuales), usando como nombres las convenciones de django. P.ej el template: <app>/<model>_<viewtype>.html
+#entonces vamos a crear un template llamado post_detail.html en templates/blog
+class PostDetailView(DetailView):
+    model = Post
+
 
 def about(request):
     #a este le agregamos el titulo como tercer argumento
