@@ -1,3 +1,5 @@
+from django.forms.models import BaseModelForm
+from django.http import HttpResponse
 from django.shortcuts import render
 #from django.http import HttpResponse #dont need it, we are not using it
 #ListView para ver lista de posteos, DetailView para ver cada posteo en detalle y CreateView para nuevos posteos.
@@ -30,6 +32,35 @@ class PostDetailView(DetailView):
 class PostCreateView(CreateView):
     model = Post
     fields = ['title', 'content']
+
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+''' The code defines a class named PostCreateView which inherits from the CreateView class. 
+    CreateView is a generic view provided by Django for creating new objects.
+
+    model = Post: This line sets the model attribute of the PostCreateView class to the Post model. 
+    It indicates that the view is used for creating instances of the Post model.
+
+    fields = ['title', 'content']: This line sets the fields attribute of the PostCreateView class to a list containing 
+    the names of the fields that should be included in the form for creating a new Post object. In this case, the form will have fields for title and content.
+
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:: This line defines a method named form_valid within the PostCreateView class. 
+    This method is responsible for handling the form submission when it is valid. It takes two parameters: self (referring to the instance of the class) 
+    and form (referring to the form instance).
+
+    form.instance.author = self.request.user: This line assigns the author field of the form.instance (the new Post object) 
+    to the currently authenticated user (self.request.user). It associates the currently logged-in user as the author of the post.
+
+    return super().form_valid(form): This line calls the form_valid method of the parent class (CreateView) using the super() function. 
+    It passes the form as an argument to the parent's form_valid method. This allows the parent class to perform its default behavior 
+    for form validation and object creation. Finally, it returns the result of the parent's form_valid method, which in this case is an HttpResponse object.
+
+In summary, this code defines a class-based view (PostCreateView) that extends the CreateView class. 
+It specifies the Post model as the model to create objects for and sets the title and content fields as the fields to be included in the form. 
+When the form is submitted and valid, the form_valid method is called, which assigns the currently logged-in user as the author of the post and 
+then calls the form_valid method of the parent class to handle the default behavior of object creation.'''
 
 #FUNCTION-BASED VIEW PARA EL ABOUT THE BLOG
 def about(request):
