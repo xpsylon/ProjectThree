@@ -1,17 +1,15 @@
 {#TEMPLATE NAME AS DJANGO CONVENTION#}
 {% extends "blog/base.html" %}
-{% load crispy_forms_tags %}
-
 {% block contenido %}
     <div class="content-section">
         <form method="post">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Blog Post</legend>
-                {{ form|crispy }} 
+                <legend class="border-bottom mb-4">Delete Post</legend>
+                <h2>Seguro que quiere borrar el posteo "{{ object.title }}"</h2>
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Post</button>
+                <button class="btn btn-outline-danger" type="submit">, Yes, Delete!</button>
             </div>
         </form>
     </div>
