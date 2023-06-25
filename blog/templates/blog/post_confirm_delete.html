@@ -1,0 +1,22 @@
+{#TEMPLATE NAME AS DJANGO CONVENTION#}
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block contenido %}
+    <div class="content-section">
+        <form method="post">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Blog Post</legend>
+                {{ form|crispy }} 
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Post</button>
+            </div>
+        </form>
+    </div>
+{% endblock contenido %}
+
+{# Este template viene renderizado desde la class-based view PostCreateView, heredada de CreateView de Django #}
+{# CreateView espera que en el template los formularios lleven el nombre de form #}
+{# Create View ya trae por default dos campos, uno de texto pequeño y uno de texto grande (title y content para este caso de PostCreateView) #}

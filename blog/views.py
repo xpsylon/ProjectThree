@@ -1,10 +1,17 @@
-from django.forms.models import BaseModelForm
+from typing import Optional
+from django.forms.models import BaseModelForm #para form en def form_valid
 from django.http import HttpResponse
 from django.shortcuts import render
 #from django.http import HttpResponse #dont need it, we are not using it
 #ListView para ver lista de posteos, DetailView para ver cada posteo en detalle y CreateView para nuevos posteos.
-from django.views.generic import ListView, DetailView, CreateView 
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib import messages
+
+#Como el decorator @login_required para function based views, este es para class based views. 
+#se pasa simplemente como argumento. Te manda al Login si al intentar crear un post nuevo no estas logeado.
+#El UserPassesTestMixin es para que solo el autor pueda actualizar su post.S
 
 # Create your views here.
 def home(request):
@@ -29,13 +36,37 @@ class PostDetailView(DetailView):
     model = Post
 
 #Creamos clase-based view heredando de CreateView:
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'content']
-
+    #pide el autor para crear post
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Post
+    fields = ['title', 'content']
+    #pide el autor para actualizar post
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    #chequea que sea el autor quien escribio el post.
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    fields = ['title', 'content']
+    #chequea que sea el autor que escribio el post para poder deletear:
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
 
 ''' The code defines a class named PostCreateView which inherits from the CreateView class. 
     CreateView is a generic view provided by Django for creating new objects.

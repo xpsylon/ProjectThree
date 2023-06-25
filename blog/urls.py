@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PostListView, PostDetailView, PostCreateView
+from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView
 from . import views
 
 #lista que contiene funciones
@@ -9,6 +9,8 @@ urlpatterns = [
     #usando la convencion de django para acceder a cada posteo se pasa el PK (primary key):
     path('post/<int:pk>/', PostDetailView.as_view(), name='detalle-posteo'),
     path('post/new', PostCreateView.as_view(), name='post-nuevo'),
+    path('post/<int:pk>/update', PostUpdateView.as_view(), name='post-editar'),
+    path('post/<int:pk>/delete', PostDeleteView.as_view(), name='post-borrar'),
     path('about/', views.about,  name='sobre-el-blog'),
 ]
 #we get error template doesn exist. By convention, Django searches for:
