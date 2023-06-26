@@ -28,7 +28,8 @@ class PostListView(ListView):
     model = Post
     template_name = 'blog/home.html' #porque sino va por default a blog/post_list.html
     context_object_name = 'cosas' #porque sino por default las ListViews buscan loopear por object_list
-    ordering = ['-date_posted'] #ordebar de fecha mas nueva a mas vieja (con el signo -)
+    ordering = ['-date_posted'] #ordenar de fecha mas nueva a mas vieja (con el signo -)
+    paginate_by = 2 #Paginator
 
 #creamos una lista de DetailView (posteos individuales), usando como nombres las convenciones de django. P.ej el template: <app>/<model>_<viewtype>.html
 #entonces vamos a crear un template llamado post_detail.html en templates/blog
@@ -61,7 +62,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
-    fields = ['title', 'content']
+    success_url = '/'
     #chequea que sea el autor que escribio el post para poder deletear:
     def test_func(self):
         post = self.get_object()
