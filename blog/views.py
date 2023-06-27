@@ -1,7 +1,8 @@
-from typing import Optional
+from typing import Any
+from django.db.models.query import QuerySet
 from django.forms.models import BaseModelForm #para form en def form_valid
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 #from django.http import HttpResponse #dont need it, we are not using it
 #ListView para ver lista de posteos, DetailView para ver cada posteo en detalle y CreateView para nuevos posteos.
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -29,8 +30,17 @@ class PostListView(ListView):
     template_name = 'blog/home.html' #porque sino va por default a blog/post_list.html
     context_object_name = 'cosas' #porque sino por default las ListViews buscan loopear por object_list
     ordering = ['-date_posted'] #ordenar de fecha mas nueva a mas vieja (con el signo -)
-    paginate_by = 2 #Paginator
+    paginate_by = 5 #Paginator
 
+class UserPostListView(ListView):
+    model = Post
+    template_name = 'blog/user_posts.html'
+    context_object_name = 'cosas'
+    ordering = ['-date_posted']
+    paginate_by = 5
+
+    def get_queryset(self) -> QuerySet[Any]:
+        return super().get_queryset()
 #creamos una lista de DetailView (posteos individuales), usando como nombres las convenciones de django. P.ej el template: <app>/<model>_<viewtype>.html
 #entonces vamos a crear un template llamado post_detail.html en templates/blog
 class PostDetailView(DetailView):

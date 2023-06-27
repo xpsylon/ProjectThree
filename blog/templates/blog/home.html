@@ -17,5 +17,27 @@
             </div>
         </article>
     {% endfor %}
+    {# PAGINATION: #}
+    {% if is_paginated %}
+        
+        {% if page_obj.has_previous %}
+            <a class="btn btn-outline-info mb-4" href="?page=1">Primera</a>
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+        {% endif %}
+
+        {% for i in page_obj.paginator.page_range %}
+            {% if page_obj.number == i %}
+                <a class="btn btn-info mb-4" href="?page={{ i }}"> {{ i }}</a>
+            {% elif i > page_obj.number|add:"-3" and i < page_obj.number|add:"3" %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ i }}">{{ i }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Ultima</a>
+        {% endif %}
+
+    {% endif %}
 {% endblock contenido %}
 
