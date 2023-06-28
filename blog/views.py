@@ -8,8 +8,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib import messages
-
+from django.contrib.auth.models import User
 #Como el decorator @login_required para function based views, este es para class based views. 
 #se pasa simplemente como argumento. Te manda al Login si al intentar crear un post nuevo no estas logeado.
 #El UserPassesTestMixin es para que solo el autor pueda actualizar su post.S
@@ -29,18 +28,20 @@ class PostListView(ListView):
     model = Post
     template_name = 'blog/home.html' #porque sino va por default a blog/post_list.html
     context_object_name = 'cosas' #porque sino por default las ListViews buscan loopear por object_list
-    ordering = ['-date_posted'] #ordenar de fecha mas nueva a mas vieja (con el signo -)
+    ordering = ['-date_posted'] #ordenar de fecha mas nueva a mas vieja (con el signo -).
     paginate_by = 5 #Paginator
 
 class UserPostListView(ListView):
     model = Post
     template_name = 'blog/user_posts.html'
     context_object_name = 'cosas'
-    ordering = ['-date_posted']
+    # ordering = ['-date_posted'] will be overwritten by the get_queryset
     paginate_by = 5
 
     def get_queryset(self) -> QuerySet[Any]:
-        return super().get_queryset()
+        user = get_object_or_404(User, username=self.kwargs.get('username')) #kwargs es un diccionario.
+        return Post.objects.filter(author=user).order_by('-date_posted')
+
 #creamos una lista de DetailView (posteos individuales), usando como nombres las convenciones de django. P.ej el template: <app>/<model>_<viewtype>.html
 #entonces vamos a crear un template llamado post_detail.html en templates/blog
 class PostDetailView(DetailView):
