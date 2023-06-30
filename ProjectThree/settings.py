@@ -144,3 +144,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 LOGIN_REDIRECT_URL = 'casa-blog'
 #PARA QUE LLEVE A LA PAGINA DE LOGIN SI SE INTENTA ACCEDER AL PERFIL LUEGO DEL LOGOUT:
 LOGIN_URL = 'entrar'
+
+#ulivpyayrzdwbimq
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'xxxpsylon@gmail.com'
+EMAIL_HOST_PASSWORD = 'ulivpyayrzdwbimq'
