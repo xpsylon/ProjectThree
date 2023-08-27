@@ -16,8 +16,8 @@ class Profile(models.Model):
         return f'{self.user.username} Profile'
         #output "eekemony Profile"
     
-    def save(self):
-        super().save() #we put the save method of the parent class
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs) #we put the save method of the parent class
         #one method for resizing images:
         imagen = Image.open(self.image.path)
         if imagen.height > 300 or imagen.width > 300:
