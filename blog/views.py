@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 #Como el decorator @login_required para function based views, este es para class based views. 
 #se pasa simplemente como argumento. Te manda al Login si al intentar crear un post nuevo no estas logeado.
-#El UserPassesTestMixin es para que solo el autor pueda actualizar su post.S
+#El UserPassesTestMixin es para que solo el autor pueda actualizar su post.
 
 # Create your views here.
 def home(request):
