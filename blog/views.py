@@ -14,13 +14,13 @@ from django.contrib.auth.models import User
 #El UserPassesTestMixin es para que solo el autor pueda actualizar su post.
 
 # Create your views here.
-def home(request):
+""" def home(request):
     #creamos un diccionario usando como valor la variable posts. En el html template se loopea por la clave y da como respuesta el valor. El valor es la lista
     #de diccionarios.
     context = {
          'cosas': Post.objects.all()
     }
-    return render(request, 'blog/home.html', context)
+    return render(request, 'blog/home.html', context) """
 
 #creating a class-based view (instead of function-based view) from ListView type:
 class PostListView(ListView):
