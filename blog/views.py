@@ -111,3 +111,7 @@ then calls the form_valid method of the parent class to handle the default behav
 def about(request):
     #a este le agregamos el titulo como tercer argumento
     return render(request, 'blog/about.html', {'titulo': 'Cosas del Blog'})
+
+#JUST A TEST VIEW FOR CHECKING THE BASE.HTML TEMPLATE:
+def base(request):
+    return render(request, 'blog/base.html')

@@ -13,6 +13,8 @@ urlpatterns = [
     path('post/<int:pk>/update', PostUpdateView.as_view(), name='post-editar'),
     path('post/<int:pk>/delete', PostDeleteView.as_view(), name='post-borrar'),
     path('about/', views.about,  name='sobre-el-blog'),
+    #fake path, just for testing purposes:
+    path('base/', views.base, name='base'),
 ]
 #we get error template doesn exist. By convention, Django searches for:
 #<app>/<model>_<viewtype>.html
