@@ -115,3 +115,7 @@ def about(request):
 #JUST A TEST VIEW FOR CHECKING THE BASE.HTML TEMPLATE:
 def base(request):
     return render(request, 'blog/base.html')
+
+def base2(request):
+    return render(request, 'blog/base2.html')
+
