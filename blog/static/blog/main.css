@@ -16,6 +16,9 @@ body {
     background-color: #5f788a;
   }
   
+  .bg-pink {
+    background-color: deeppink;
+  }
   .site-header .navbar-nav .nav-link {
     color: #cbd5db;
   }
