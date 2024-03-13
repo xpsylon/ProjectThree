@@ -48,6 +48,7 @@ class UserPostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
 
+
 #Creamos clase-based view heredando de CreateView.
 #Por default va al template blog/post_form.html
 class PostCreateView(LoginRequiredMixin, CreateView):
